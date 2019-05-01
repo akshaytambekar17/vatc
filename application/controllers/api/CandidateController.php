@@ -1066,9 +1066,10 @@ class CandidateController extends MY_Controller {
     public function getCandidateBatchList_get() {
         $get = $this->input->get();
         if( !empty( $get['batch_id'] ) ) {
+            
             $details = $get;
             $candidateList = $this->CandidateCourseFees->getCandidateCourseFeesByBatchId( $details['batch_id'] );
-
+            
             if( !empty( $candidateList ) ) {
                 $result['success'] = true;
                 $result['data'] = $candidateList;

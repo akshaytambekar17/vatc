@@ -26,6 +26,11 @@ class PushNotificationDevicesModel extends CI_Model {
         $this->db->where('user_id',$userId);
         return $this->db->get('push_notification_devices')->row_array();
     }
+	
+	public function getPushNotificationDevByUserId($userId) {
+        $this->db->where('user_id',$userId);
+        return $this->db->get('push_notification_devices')->result_array();
+    }
     
     public function insert($data){
         $this->db->insert('push_notification_devices', $data);

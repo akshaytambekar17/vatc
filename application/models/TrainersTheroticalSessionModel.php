@@ -23,7 +23,6 @@ class TrainersTheroticalSessionModel extends CI_Model {
     }
     
     public function getTrainersTheroticalSessionByEmployeeIdByIsConductedBySessionDateByFromTime( $employeeId ) {
-        
         $this->db->select('ttts.*,tbm.*,tcm.*');
         $this->db->from('tbl_trainers_therotical_session ttts');
         $this->db->join('tbl_batch_master tbm','tbm.batch_id = ttts.batch_id');

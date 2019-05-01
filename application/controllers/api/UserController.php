@@ -50,13 +50,47 @@ class UserController extends MY_Controller {
                         
                         if(!empty($details['token']) && $details['token'] != 'null' && $details['token'] != null && $details['token'] != 'undefined') {
                             
-                            $fcmData = array('token' => $details['token'],
+                            /*$fcmData = array('token' => $details['token'],
                                              'user_id' => $userDetails['user_id'],
                                              'type' => TYPE_ANDROID,
                                              'active' => 1,
                                              'updated_at' => CURRENTDATETIME
                                         );  
                             $this->PushNotificationDevices->insert($fcmData);
+							*/
+							
+							/*
+							@prasahnt
+							*/
+							$resultFcm = $this->PushNotificationDevices->getPushNotificationDevByUserId($userDetails['user_id']) ;
+							
+							if(empty($resultFcm))
+							{
+								
+								$fcmData = array('token' => $details['token'],
+												 'user_id' => $userDetails['user_id'],
+												 'type' => TYPE_ANDROID,
+												 'active' => 1,
+												 'updated_at' => CURRENTDATETIME
+											);  
+								$this->PushNotificationDevices->insert($fcmData);
+							}
+							else
+							{
+								$fcmToken  = array_column($resultFcm, 'token');
+								
+								//print_r($fcmToken);
+								if(!in_array($details['token'],$fcmToken))
+								{
+									$fcmData = array('token' => $details['token'],
+												 'user_id' => $userDetails['user_id'],
+												 'type' => TYPE_ANDROID,
+												 'active' => 1,
+												 'updated_at' => CURRENTDATETIME
+											);  
+									$this->PushNotificationDevices->insert($fcmData);
+								}
+							}
 //                            $resultFcm = $this->PushNotificationDevices->getPushNotificationDevicesByUserId($userDetails['user_id']);
 //                            if(empty($resultFcm)){
 //                                $this->PushNotificationDevices->insert($fcmData);
